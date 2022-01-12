@@ -8,5 +8,6 @@ class UserServiceImplTest {
 
     @Test
     void createUser() {
+        assertEquals(true, false);
     }
 }
