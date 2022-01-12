@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Piepser</title>
+</h:head>
+<h:body>
+    <h:form id="newUserForm">
+<h:panelGroup style="margin-left: 468px">
+
+        <h:commandButton id="startloginButton"
+                         value ="login"
+                         action="#{landingPageController.showLogin()}"
+                         style="width: 100px"
+                         rendered="#{not landingPageController.loggedIn and not landingPageController.pendingLogin}"/>
+
+
+        <h:commandButton id="logoutButton"
+                         value ="logout"
+                         action="#{landingPageController.logout()}"
+                         style="width: 100px"
+                         rendered="#{landingPageController.loggedIn}"/>
+
+</h:panelGroup>
+
+
+
+        <p>
+            <h:commandButton id="showRegisterButton"
+                             value="new user"
+                             action="#{landingPageController.showRegisteringPanel()}"
+                             style="margin-left: 10px; width: 100px"
+                             rendered="#{not landingPageController.loggedIn
+                             and not landingPageController.isRegistering()
+                             and not landingPageController.pendingLogin}">
+               <!-- <f:ajax execute="@form" render=":registeringPanel"/>-->
+            </h:commandButton>
+        </p>
+
+
+
+
+        <h:outputText value="Username: " rendered="#{landingPageController.isRegistering() or landingPageController.pendingLogin}"/>
+        <h:inputText id="userNameInput"
+                     value="#{landingPageController.userName}"
+                     rendered="#{landingPageController.isRegistering() or landingPageController.pendingLogin}"/>
+        <h:outputText value="Password: " style="margin-left: 10px;"
+                      rendered="#{landingPageController.isRegistering() or landingPageController.pendingLogin}"/>
+        <h:inputText id="passwordInput" value="#{landingPageController.password}"
+                     rendered="#{landingPageController.isRegistering() or landingPageController.pendingLogin}"/>
+        <h:commandButton id="registerButton"
+                         value="register"
+                         action="#{landingPageController.register()}"
+                         style="margin-left: 10px; width: 100px"
+                         rendered="#{landingPageController.registering}">
+        </h:commandButton>
+    <h:commandButton id="loginButton"
+                     value="login"
+                     action="#{landingPageController.login()}"
+                     style="margin-left: 10px; width: 100px"
+                     rendered="#{landingPageController.pendingLogin}">
+            <!-- <f:ajax execute="@panelGroup" render=":registeringPanel"/>-->
+        </h:commandButton>
+</h:form>
+
+
+
+
+    <h:form id="newTweetForm" prependId="false">
+        <table style="margin-top: 20px">
+            <tr>
+                <td >
+                    <h:outputText value="Willkommen User!"
+                    rendered="#{landingPageController.loggedIn}"/>
+                </td>
+            </tr>
+            <tr>
+
+                <td>What's on your mind?</td>
+                <td><h:inputText value="#{landingPageController.tweet}"
+                                 id="name"
+                                 style="width: 305px; margin-right: 6px"/></td>
+                <td><p>
+                    <h:commandButton id="sendTweetButton"
+                                     value="send tweet"
+                                     action="#{landingPageController.saveTweet()}"
+                                     style="width: 100px"
+                                    rendered="#{landingPageController.loggedIn}">
+                        <f:ajax execute="@form" render=":tweetList" />
+                    </h:commandButton></p></td>
+            </tr>
+        </table>
+    </h:form>
+
+    <h:panelGroup id="tweetList" layout="block">
+    <ul>
+        <ui:repeat id="pete" value="#{landingPageController.tweets}" var="tweet">
+            <li> #{tweet} </li>
+            <h:panelGroup id="test" layout="block"></h:panelGroup>
+        </ui:repeat>
+    </ul>
+    </h:panelGroup>
+
+</h:body>
+</html>

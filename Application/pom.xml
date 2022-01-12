@@ -11,7 +11,7 @@
 
     <artifactId>Application</artifactId>
 
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
 
     <build>
@@ -24,7 +24,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.qaware.education.application.WorldController</mainClass>
+                            <mainClass>de.qaware.education.adapter.inbound.http.WorldController</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
